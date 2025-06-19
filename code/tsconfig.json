@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "ESNext",
+      "outDir": "dist",
+      "rootDir": "src",
+      "moduleResolution": "node",        // ✅ Ensures TS accepts .js extensions  
+    },
+    "include": ["src/**/*"]
+  }
