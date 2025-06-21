@@ -3,8 +3,6 @@ import {Cell } from "./Cell.js";
 
 let canvas = document.getElementById('canvas') as HTMLCanvasElement;
 export let ctx = canvas.getContext('2d');
-canvas.height = 300;
-canvas.width = 300;
 
 let width = canvas.width;
 let height = canvas.height;
@@ -20,9 +18,11 @@ for(let j = 0; j < canvas.height / Cell.height; j ++){
 }
 
 export const game_state = {
-    update: false,
-    check_cells: false,
-}
+    ctx: ctx,
+    rows: ctx.canvas.height / Cell.height,
+    columns: ctx.canvas.width / Cell.width,
+    itteration_time: 200,
+};
 
 
 
