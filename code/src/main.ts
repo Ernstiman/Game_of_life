@@ -32,8 +32,8 @@ function game_loop(){
     draw_cells();
     for(let cell of Cell.alive_cells){
         cell.check_neighbour_cells();
-        for(let neigbour_cell of cell.neighbour_cells){
-            neigbour_cell.check_neighbour_cells();
+        for (let neigbour of cell.neighbour_cells){
+            neigbour.check_neighbour_cells();
         }
     }
 
@@ -43,10 +43,17 @@ function game_loop(){
     for(let cell of Cell.set_to_dead_cells){
         cell.alive = false;
     }
-
-    Cell.alive_cells = Cell.set_to_alive_cells;
-    Cell.set_to_alive_cells = [];
+    Cell.alive_cells = []
+    Cell.alive_cells = [...Cell.set_to_alive_cells];
+    // for(let row of Cell.cells){
+    //     for (let cell of row){
+    //         Cell.alive_cells.push(cell);
+    //     }
+    // }
+    
+    Cell.set_to_alive_cells = []
     Cell.set_to_dead_cells = [];
+    Cell.checked = [];
 
     setTimeout(game_loop, game_state.itteration_time);
     

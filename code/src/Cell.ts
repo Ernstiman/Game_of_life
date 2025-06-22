@@ -7,6 +7,7 @@ export class Cell{
     static alive_cells = [];
     static set_to_alive_cells = [];
     static set_to_dead_cells = [];
+    static checked = [];
     public i_column;
     public i_row;
     private alive;
@@ -42,17 +43,22 @@ export class Cell{
     }
 
     check_neighbour_cells(){
-        this.neighbour_cells = [];
-        this.get_neighbour_cells();
-        let count = 0;
-        for(let cell of this.neighbour_cells){
-            if(cell.alive) count++
-        }
-        if(this.alive){
-            if((count <= 1 || count >= 4) && !Cell.set_to_dead_cells.some(cell => cell === this)) Cell.set_to_dead_cells.push(this);
-        } //If the cell is to die.
-        else{
-            if(count === 3 && !Cell.set_to_alive_cells.some(cell => cell === this)) Cell.set_to_alive_cells.push(this); // if the cell is to be alive the next itteration.   
+        if(!Cell.checked.some(cell => cell === this)){
+            this.neighbour_cells = [];
+            this.get_neighbour_cells();
+            let count = 0;
+            for(let cell of this.neighbour_cells){
+                if(cell.alive) count++
+            }
+            if(this.alive){
+                if(count <= 1 || count >= 4) Cell.set_to_dead_cells.push(this);
+                else Cell.set_to_alive_cells.push(this);
+            } //If the cell is to die.
+            else{
+                if(count === 3) Cell.set_to_alive_cells.push(this);
+                else Cell.set_to_dead_cells.push(this); // if the cell is to be alive the next itteration.   
+            }
+            Cell.checked.push(this);
         }
     }
 
